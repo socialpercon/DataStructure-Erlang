@@ -1,0 +1,1 @@
+-record(tudo, {status=reminder,who=joe,text}).
