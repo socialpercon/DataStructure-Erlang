@@ -1,0 +1,2 @@
+-record(tudo, {status=reminder,who=joe,text}).
+-record(pro, {cid,host,example}).
