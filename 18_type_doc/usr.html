@@ -1,6 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Module usr</title>
 <link rel="stylesheet" type="text/css" href="stylesheet.css" title="EDoc">
 </head>
@@ -12,7 +13,7 @@
 <ul class="index"><li><a href="#description">Description</a></li><li><a href="#types">Data Types</a></li><li><a href="#index">Function Index</a></li><li><a href="#functions">Function Details</a></li></ul> API and server code for the  mobile subscriber database.
 <p>Copyright © 2009 Francseco Cesarini and Simon Thompson</p>
 
-<p><b>Authors:</b> Francseco Cesarini (<a href="mailto:support@erlang-consulting.com"><tt>support@erlang-consulting.com</tt></a>), Simon Thompson (<a href="mailto:s.j.thompson@kent.ac.uk"><tt>s.j.thompson@kent.ac.uk</tt></a>).</p>
+<p><b>Authors:</b> Francseco Cesarini (<a href="mailto:francesco@erlang-consulting.com"><tt>francesco@erlang-consulting.com</tt></a>), Simon Thompson (<a href="mailto:s.j.thompson@kent.ac.uk"><tt>s.j.thompson@kent.ac.uk</tt></a>).</p>
 <p><b>References</b><ul><li>Erlang Programming,
    <em> Francseco Cesarini and Simon Thompson</em>,
    O'Reilly, 2009.</li></ul></p>
@@ -78,13 +79,13 @@
 
 <h3 class="function"><a name="add_usr-3">add_usr/3</a></h3>
 <div class="spec">
-<p><tt>add_usr(PhoneNum::integer(), CustId::integer(), Plan::<a href="#type-plan">plan()</a>) -&gt; ok | {error, <a href="#type-instTime">instTime()</a>}</tt></p>
+<p><tt>add_usr(PhoneNum::integer(), CustId::integer(), Plan::<a href="#type-plan">plan()</a>) -&gt; ok | {error, <a href="#type-instTime">instTime()</a>}</tt><br></p>
 </div><p>Add a user with specified phone number, customer id and plan type.
   Returns <code>ok</code> or an <code>error</code> tuple.</p>
 
 <h3 class="function"><a name="delete_disabled-0">delete_disabled/0</a></h3>
 <div class="spec">
-<p><tt>delete_disabled() -&gt; ok | {error, timeout}</tt></p>
+<p><tt>delete_disabled() -&gt; ok | {error, timeout}</tt><br></p>
 </div><p>Traverses the table and deletes all users whose status is set to <code>disabled</code>.</p>
 
 <h3 class="function"><a name="delete_usr-1">delete_usr/1</a></h3>
@@ -94,20 +95,20 @@
 
 <h3 class="function"><a name="lookup_id-1">lookup_id/1</a></h3>
 <div class="spec">
-<p><tt>lookup_id(CustId::integer()) -&gt; {ok, #usr{}} | {error, instance}</tt></p>
+<p><tt>lookup_id(CustId::integer()) -&gt; {ok, #usr{}} | {error, instance}</tt><br></p>
 </div><p>Lookup a user based on their CustId and return a record of type <code>usr</code>. If the
   customer does not exist, an <code>error</code> tuple is returned.</p>
 
 <h3 class="function"><a name="lookup_msisdn-1">lookup_msisdn/1</a></h3>
 <div class="spec">
-<p><tt>lookup_msisdn(PhoneNo::integer()) -&gt; {ok, #usr{}} | {error, instance}</tt></p>
+<p><tt>lookup_msisdn(PhoneNo::integer()) -&gt; {ok, #usr{}} | {error, instance}</tt><br></p>
 </div><p>Lookup the <code>usr</code> record for a customer, specified by a <code>PhoneNo</code>.
   If successful return an <code>ok</code> tuple with the record; otherwise
   return an <code>error</code> tuple.</p>
 
 <h3 class="function"><a name="service_flag-2">service_flag/2</a></h3>
 <div class="spec">
-<p><tt>service_flag(PhoneNo::integer(), Service::<a href="#type-service">service()</a>) -&gt; bool() | {error, instance | disabled}</tt></p>
+<p><tt>service_flag(PhoneNo::integer(), Service::<a href="#type-service">service()</a>) -&gt; bool() | {error, instance | disabled}</tt><br></p>
 </div><p>This function will check if a user exists and has an enabled status. If so, it
    will traverse the list of services to determine if the subscriber is allowed to use
   this Service in a particular request. This is a variant of the lookup_msisdn/1
@@ -115,35 +116,35 @@
 
 <h3 class="function"><a name="set_service-3">set_service/3</a></h3>
 <div class="spec">
-<p><tt>set_service(CustId::integer(), Service::<a href="#type-service">service()</a>, Flag::bool()) -&gt; ok | {error, <a href="#type-instTime">instTime()</a>}</tt></p>
+<p><tt>set_service(CustId::integer(), Service::<a href="#type-service">service()</a>, Flag::bool()) -&gt; ok | {error, <a href="#type-instTime">instTime()</a>}</tt><br></p>
 </div><p>Set or unset a particular service for a particular customer. A <code>true</code> Flag
   sets the service and <code>false</code> unsets it.</p>
 
 <h3 class="function"><a name="set_status-2">set_status/2</a></h3>
 <div class="spec">
-<p><tt>set_status(CustId::integer(), Status::<a href="#type-status">status()</a>) -&gt; ok | {error, <a href="#type-instTime">instTime()</a>}</tt></p>
+<p><tt>set_status(CustId::integer(), Status::<a href="#type-status">status()</a>) -&gt; ok | {error, <a href="#type-instTime">instTime()</a>}</tt><br></p>
 </div><p>Set the status of a customer to be enabled or disabled.</p>
 
 <h3 class="function"><a name="start-0">start/0</a></h3>
 <div class="spec">
-<p><tt>start() -&gt; ok | {error, starting}</tt></p>
+<p><tt>start() -&gt; ok | {error, starting}</tt><br></p>
 </div><p>Start the system with the default filename.
   Returns <code>ok</code> or an <code>error</code> tuple.</p>
 
 <h3 class="function"><a name="start-1">start/1</a></h3>
 <div class="spec">
-<p><tt>start(FileName::string()) -&gt; ok | {error, starting}</tt></p>
+<p><tt>start(FileName::string()) -&gt; ok | {error, starting}</tt><br></p>
 </div><p>Start the system with the given <code>Filename</code>.
   Returns <code>ok</code> or an <code>error</code> tuple.</p>
 
 <h3 class="function"><a name="stop-0">stop/0</a></h3>
 <div class="spec">
-<p><tt>stop() -&gt; ok | {error, string()}</tt></p>
+<p><tt>stop() -&gt; ok | {error, string()}</tt><br></p>
 </div><p>Stop the system.
   Returns <code>ok</code> or an <code>error</code> tuple, containing the reason for failure.</p>
 <hr>
 
 <div class="navbar"><a name="#navbar_bottom"></a><table width="100%" border="0" cellspacing="0" cellpadding="2" summary="navigation bar"><tr><td><a href="overview-summary.html" target="overviewFrame">Overview</a></td><td><a href="http://www.erlang.org/"><img src="erlang.png" align="right" border="0" alt="erlang logo"></a></td></tr></table></div>
-<p><i>Generated by EDoc, Feb 28 2009, 12:50:24.</i></p>
+<p><i>Generated by EDoc, Mar 14 2013, 09:26:45.</i></p>
 </body>
 </html>

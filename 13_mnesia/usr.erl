@@ -5,14 +5,68 @@
 -export([create_tables/0, ensure_loaded/0]).
 -export([add_usr/3, delete_usr/1, set_service/3, set_status/2, 
 	 delete_disabled/0, lookup_id/1]).
--export([lookup_msisdn/1, service_flag/2]).
-
+-export([lookup_msisdn/1, service_flag/2, excute_table/0, reset_tables/0, example_tables/0]).
+-import(lists, [foreach/2]).
+-include("datastore.hrl").
 -include("usr.hrl").
 
 
+-define(TABLE_INFO, [{disc_copies, [node()]},
+                                       {index, [name, version]},
+                                       {attributes, record_info(fields, package_info)},
+                                       {storage_properties, [{ets, [compressed]}, {dets, [{auto_save, 5000}]}
+                                       ]}]).
+
 %% Mnesia API
 
+
+%% @doc make mnesia table
+%% if table is exist on disk, just load table.
+%% @spec excute_table() -> ok
+
+-spec(excute_table() -> ok).
+excute_table() ->
+    mnesia:create_schema([node()]),
+    mnesia:start(),
+    %mnesia:delete_table(package_info),
+	case mnesia:create_table(package_info, ?TABLE_INFO) of
+		{atomic, ok} ->
+			ok;
+		{aborted, Reason} ->
+			Reason
+	end.
+	
+	%case mnesia:transaction(F) of
+    %    {atomic, ok} -> 
+    %    	mnesia:stop(),
+    %        ok;
+    %    {atomic, What} ->
+    %    	What;
+    %    {aborted, Reason} ->
+    %        Reason
+	%end.
+    %case mnesia:transaction(fun mnesia:create_table/2, [package_info, ?TABLE_INFO]) of
+    %    {atomic, What} ->
+    %    	What;
+    %    {aborted, Reason} ->
+    %        Reason
+    %end.
+
+reset_tables() ->
+    F = fun() ->
+		foreach(fun mnesia:write/1, example_tables())
+	end,
+    mnesia:transaction(F).
+
+example_tables() ->
+    Rec = #package_info{id=1, name=mypackage, version=snapshot, time=20130322, hashkey=123124},
+    Fun = fun() -> mnesia:write(Rec) end,
+    {atomic, Res}= mnesia:transaction(Fun),
+    Res.
+    %mnesia:write(#package_info{id=1, name=mypackage, version=snapshot, time=20130322, hashkey=123124}).
+
 create_tables() ->
+
     mnesia:create_table(usr, [{disc_copies, [node()]}, {ram_copies, nodes()},
 			      {type, set}, {attributes,record_info(fields, usr)},
 			      {index, [id]}]).
